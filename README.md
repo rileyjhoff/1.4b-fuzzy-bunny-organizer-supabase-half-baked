@@ -2,8 +2,8 @@
 
 ## Learning Objectives
 
--   In response to a user event, make a fetch call to delete an item in the array and display the new state to the user (i.e., delete a todo).
--   Create foreign key relationships in Supabase and fetch related data using a single query
+- In response to a user event, make a fetch call to delete an item in the array and display the new state to the user (i.e., delete a todo).
+- Create foreign key relationships in Supabase and fetch related data using a single query
 
 ## Demo
 
@@ -13,16 +13,15 @@
 
 Here is the schema for the `fuzzy_bunnies` table
 
-![](https://github.com/alchemycodelab/half-baked-web-01-fuzzy-bunny-organizer/raw/main/bunnies-model.png)
+![bunnies model](https://github.com/alchemycodelab/half-baked-web-01-fuzzy-bunny-organizer/raw/main/bunnies-model.png)
 
 Here is the schema for the `loving_families` table
 
-![](https://github.com/alchemycodelab/half-baked-web-01-fuzzy-bunny-organizer/raw/main/families-model.png)
+![families model](https://github.com/alchemycodelab/half-baked-web-01-fuzzy-bunny-organizer/raw/main/families-model.png)
 
 Enable row level security and add policies that only allow authenticated users to perform CRUD actions on the tables.
 
 ## Acceptance Criteria
-
 
 | Task                                                                             | Points |
 | -------------------------------------------------------------------------------- | ------ |
