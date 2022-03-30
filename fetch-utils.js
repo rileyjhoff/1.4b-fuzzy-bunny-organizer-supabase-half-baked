@@ -10,6 +10,10 @@ export function getUser() {
 
 export async function getFamilies() {
     // fetch all families and their bunnies
+    const response = await client
+        .from('loving_families')
+        .select('*, fuzzy_bunnies (*)')
+        .order('id', { ascending: true });
 
     return checkError(response);
 }
