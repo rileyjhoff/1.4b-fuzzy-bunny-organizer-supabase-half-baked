@@ -24,21 +24,36 @@ async function displayFamilies() {
         //        <div class="bunny">Bob</div>
         //    </div>
         // </div>
+        const familyDiv = document.createElement('div');
+        const familyNameEl = document.createElement('h3');
+        const bunniesDiv = document.createElement('div');
         // add the bunnies css class to the bunnies el, and family css class to the family el
+        familyDiv.classList.add('family');
+        bunniesDiv.classList.add('bunnies');
         // put the family name in the name element
+        familyNameEl.textContent = family.name;
         // for each of this family's bunnies
-        //    make an element with the css class 'bunny', and put the bunny's name in the text content
-        //    add an event listener to the bunny el. On click, delete the bunny, then refetch and redisplay all families.
-        // append this bunnyEl to the bunniesEl
+        for (let bunny of family.fuzzy_bunnies) {
+            //    make an element with the css class 'bunny', and put the bunny's name in the text content
+            const bunnyDiv = document.createElement('div');
+            bunnyDiv.classList.add('bunny');
+            bunnyDiv.textContent = bunny.name;
+            //    add an event listener to the bunny el. On click, delete the bunny, then refetch and redisplay all families.
+            bunnyDiv.addEventListener('click', () => {
+                console.log('working');
+            });
+            // append this bunnyEl to the bunniesEl
+            bunniesDiv.append(bunnyDiv);
+        }
+        // append the bunniesEl and nameEl to the familyEl
+        familyDiv.append(familyNameEl, bunniesDiv);
+        // append the familyEl to the familiesEl
+        familiesEl.append(familyDiv);
     }
-
-    // append the bunniesEl and nameEl to the familyEl
-
-    // append the familyEl to the familiesEl
 }
 
 window.addEventListener('load', async () => {
     const families = await getFamilies();
-
+    console.log(families);
     displayFamilies(families);
 });
