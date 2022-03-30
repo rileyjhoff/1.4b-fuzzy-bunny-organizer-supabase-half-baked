@@ -28,6 +28,15 @@ export async function getBunny(id) {
     return checkError(response);
 }
 
+export async function updateBunny(bunny) {
+    const response = await client
+        .from('fuzzy_bunnies')
+        .update({ name: bunny.name, family_id: bunny.family_id })
+        .match({ id: bunny.id });
+
+    return checkError(response);
+}
+
 export async function deleteBunny(id) {
     // delete a single bunny using the id argument
     const response = await client
