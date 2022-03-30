@@ -39,7 +39,7 @@ async function displayFamilies() {
             const bunnyDiv = document.createElement('div');
             bunnyDiv.classList.add('bunny');
             bunnyDiv.textContent = bunny.name;
-            anchor.href = `../bunny-details/?id=${bunny.id}`;
+            anchor.href = `../edit-bunny/?id=${bunny.id}`;
             //    add an event listener to the bunny el. On click, delete the bunny, then refetch and redisplay all families.
             // bunnyDiv.addEventListener('click', async () => {
             //     await deleteBunny(bunny.id);
