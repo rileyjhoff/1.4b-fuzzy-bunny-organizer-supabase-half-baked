@@ -19,7 +19,8 @@ let families = [];
 sortEl.addEventListener('change', async () => {
     if (sortEl.value === '1') {
         const rawFamilies = await getFamilies();
-        families = rawFamilies.map(family => {family.bunnyCount = family.fuzzy_bunnies.length; return family;});      }    
+        families = rawFamilies.map(family => {family.bunnyCount = family.fuzzy_bunnies.length; return family;});
+    }    
     if (sortEl.value === '2') {
         families = [...families].sort(compareBunnies).reverse();
     }
@@ -93,16 +94,4 @@ function compareBunnies(a, b) {
         comparison = -1;
     }
     return comparison;
-}
-
-// counts fuzzy_bunnies.length and sorts from lowest to highest
-// families.map(family => family.fuzzy_bunnies.length).sort()
-
-// counts fuzzy_bunnies.length and sorts from highest to lowest
-// families.map(family => family.fuzzy_bunnies.length).sort().reverse()
-
-function sortFamilies(families, value) {
-    if (value === 2) {
-        families.sort()
-    }
 }
