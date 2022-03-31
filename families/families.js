@@ -1,17 +1,37 @@
-import { checkAuth, deleteBunny, getFamilies, logout } from '../fetch-utils.js';
+import { 
+    checkAuth, 
+    getFamilies, 
+    logout,
+} from '../fetch-utils.js';
 
 checkAuth();
 
 const familiesEl = document.querySelector('.families-container');
 const logoutButton = document.getElementById('logout');
+const sortEl = document.getElementById('sort');
 
 logoutButton.addEventListener('click', () => {
     logout();
 });
 
-async function displayFamilies() {
+let families = [];
+
+sortEl.addEventListener('change', async () => {
+    if (sortEl.value === '1') {
+        const rawFamilies = await getFamilies();
+        families = rawFamilies.map(family => {family.bunnyCount = family.fuzzy_bunnies.length; return family;});      }    
+    if (sortEl.value === '2') {
+        families = [...families].sort(compareBunnies).reverse();
+    }
+    if (sortEl.value === '3') {
+        families = [...families].sort(compareBunnies);
+    }
+    await displayFamilies(families);
+});
+
+async function displayFamilies(families) {
     // fetch families from supabase
-    const families = await getFamilies();
+    // console.log(families);
     // clear out the familiesEl
     familiesEl.textContent = '';
     for (let family of families) {
@@ -57,7 +77,32 @@ async function displayFamilies() {
 }
 
 window.addEventListener('load', async () => {
-    const families = await getFamilies();
-    console.log(families);
+    const rawFamilies = await getFamilies();
+    families = rawFamilies.map(family => {family.bunnyCount = family.fuzzy_bunnies.length; return family;});
     displayFamilies(families);
 });
+
+function compareBunnies(a, b) {
+    const bunniesA = a.bunnyCount;
+    const bunniesB = b.bunnyCount;
+    let comparison = 0;
+    if (bunniesA > bunniesB) {
+        comparison = 1;
+    }
+    if (bunniesB > bunniesA) {
+        comparison = -1;
+    }
+    return comparison;
+}
+
+// counts fuzzy_bunnies.length and sorts from lowest to highest
+// families.map(family => family.fuzzy_bunnies.length).sort()
+
+// counts fuzzy_bunnies.length and sorts from highest to lowest
+// families.map(family => family.fuzzy_bunnies.length).sort().reverse()
+
+function sortFamilies(families, value) {
+    if (value === 2) {
+        families.sort()
+    }
+}
