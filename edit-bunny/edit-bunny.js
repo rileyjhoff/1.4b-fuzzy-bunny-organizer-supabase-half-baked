@@ -1,25 +1,35 @@
 import { 
-    createBunny, 
     getFamilies, 
     checkAuth, 
-    logout 
+    logout,
+    getBunny,
+    updateBunny,
+    deleteBunny
 } from '../fetch-utils.js';
 
 const form = document.querySelector('.bunny-form');
 const logoutButton = document.getElementById('logout');
+const bunnyName = document.getElementById('bunny-name');
+const bunnyFamily = document.getElementById('family-select');
+const deleteBunnyButton = document.getElementById('delete-bunny');
+
+let bunny = {};
 
 form.addEventListener('submit', async e => {
     // prevent default
     e.preventDefault();
     // get the name and family id from the form
     const data = new FormData(form);
-    const bunny = {
-        name: data.get('bunny-name'),
-        family_id: data.get('family-id')
-    };
+    bunny.name = data.get('bunny-name');
+    bunny.family_id = data.get('family-id');
     // use createBunny to create a bunny with this name and family id
-    await createBunny(bunny);
+    await updateBunny(bunny);
     form.reset();
+    displayBunny();
+});
+
+deleteBunnyButton.addEventListener('click', async () => {
+    await deleteBunny(bunny.id);
     location.replace('../families');
 });
 
@@ -39,8 +49,17 @@ window.addEventListener('load', async () => {
     // and append the option to the select
         selectEl.append(optionEl);
     }
+    displayBunny();
 });
 
+async function displayBunny() {
+    const data = new URLSearchParams(window.location.search);
+    const bunnyId = data.get('id');
+    const bunnyObj = await getBunny(bunnyId);
+    bunny = bunnyObj;
+    bunnyName.value = bunnyObj.name;
+    bunnyFamily.value = bunnyObj.family_id;
+}
 
 checkAuth();
 
